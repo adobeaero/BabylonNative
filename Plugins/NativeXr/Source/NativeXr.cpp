@@ -910,9 +910,13 @@ namespace Babylon
                 env.Global().Set(JS_CLASS_NAME, func);
             }
 
+            static Napi::Function GetConstructor(const Napi::Env env) {
+                return env.Global().Get(JS_CLASS_NAME).As<Napi::Function>();
+            }
+
             static Napi::Object New(const Napi::CallbackInfo& info)
             {
-                return info.Env().Global().Get(JS_CLASS_NAME).As<Napi::Function>().New({});
+                return GetConstructor(info.Env()).New({});
             }
 
             XRRigidTransform(const Napi::CallbackInfo& info)
@@ -1281,10 +1285,12 @@ namespace Babylon
                 if (argLength > 0 && info[0].IsObject())
                 {
                     auto argumentObject{info[0].As<Napi::Object>()};
+                    auto rigidTransformConstructor = XRRigidTransform::GetConstructor(info.Env()).As<Napi::Function>();
 
-                    XRRigidTransform* transform{XRRigidTransform::Unwrap(argumentObject)};
-                    if (transform != nullptr)
+                    if (argumentObject.InstanceOf(rigidTransformConstructor))
                     {
+                        XRRigidTransform *transform{XRRigidTransform::Unwrap(argumentObject)};
+
                         // The value passed in to the constructor is an XRRigidTransform
                         xr::Pose pose{transform->GetNativePose()};
                         tempVals.Origin = pose.Position;
