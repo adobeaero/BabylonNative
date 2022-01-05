@@ -922,13 +922,14 @@ namespace xr {
                 [commandBuffer commit];
             }
             @finally {
-                if (cameraTextureY != nil) {
-                    [cameraTextureY setPurgeableState:MTLPurgeableStateEmpty];
-                }
-
-                if (cameraTextureCbCr != nil) {
-                    [cameraTextureCbCr setPurgeableState:MTLPurgeableStateEmpty];
-                }
+//Crashes on my phone - falco
+//                if (cameraTextureY != nil) {
+//                    [cameraTextureY setPurgeableState:MTLPurgeableStateEmpty];
+//                }
+//
+//                if (cameraTextureCbCr != nil) {
+//                    [cameraTextureCbCr setPurgeableState:MTLPurgeableStateEmpty];
+//                }
             }
 
             return std::make_unique<Frame>(*this);
