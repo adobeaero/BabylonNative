@@ -1,4 +1,20 @@
 /Build
 .DS_Store
 .vscode
+*BabylonNative.Build*
+*cmake_install*
+*CmakeCache.txt
+*Debug-iphoneos*
+*Release-iphoneos*
+*MinSizeRel-iphoneos*
+*CMakeFiles*
+*CmakeScripts*
+*xcschemes*
+*.dia
+*.pch
+*.xcsettings
+*.xcuserstate
+*.xcscheme
+*build_info.h
+
 
